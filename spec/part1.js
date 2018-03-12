@@ -418,7 +418,7 @@
       });
 
       // remove the 'x' to enable test
-      xit('optimize for even numbers', function() {
+      it('optimize for even numbers', function() {
         exponent(3,4);
         expect(exponent.callCount).to.be.at.most(4);
 
@@ -432,7 +432,7 @@
       });
 
       // remove the 'x' to enable test
-      xit('should accept negative integer for base', function() {
+      it('should accept negative integer for base', function() {
         expect(exponent(-3,4)).to.equal(81);
         expect(exponent(-12,5)).to.equal(-248832);
         expect(exponent(-7,2)).to.equal(49);
@@ -641,6 +641,9 @@
         expect(modulo(-275, -502)).to.equal(-275 % -502);
         expect(modulo(-275, -274)).to.equal(-275 % -274);
         expect(modulo(-4, 2)).to.equal(-4 % 2);
+        // added below tests for additional edge case handling
+        expect(modulo(4, -2)).to.equal(4 % -2);
+        expect(modulo(57, -20)).to.equal(57 % -20);
       });
 
       it('should use recursion by calling self', function() {
@@ -694,17 +697,17 @@
         expect(multiply(17, 5)).to.equal(17 * 5);
         expect(multiply(0, 32)).to.equal(0 * 32);
         expect(multiply(0, 0)).to.equal(0 * 0);
-        // expect(multiply(78, 453)).to.equal(78 * 453);
+        expect(multiply(78, 453)).to.equal(78 * 453);
       });
 
       it('should return the product of two negative integers', function() {
         expect(multiply(-2, -2)).to.equal(-2 * -2);
         expect(multiply(-8, -3)).to.equal(-8 * -3);
         expect(multiply(-5, -27)).to.equal(-5 * -27);
-        // expect(multiply(-79, -82)).to.equal(-79 * -82);
-        // expect(multiply(-275, -502)).to.equal(-275 * -502);
-        // expect(multiply(-12, -10)).to.equal(-12 * -10);
-        // expect(multiply(-22, -3)).to.equal(-22 * -3);
+        expect(multiply(-79, -82)).to.equal(-79 * -82);
+        expect(multiply(-275, -502)).to.equal(-275 * -502);
+        expect(multiply(-12, -10)).to.equal(-12 * -10);
+        expect(multiply(-22, -3)).to.equal(-22 * -3);
       });
 
       it('should return the product of mixed positive and negative integers', function() {
@@ -712,18 +715,18 @@
         expect(multiply(79, -82)).to.equal(79 * -82);
         expect(multiply(2, -2)).to.equal(2 * -2);
         expect(multiply(5, -27)).to.equal(5 * -27);
-        // expect(multiply(-275, 502)).to.equal(-275 * 502);
-        // expect(multiply(275, -502)).to.equal(275 * -502);
-        // expect(multiply(-8, 3)).to.equal(-8 * 3);
-        // expect(multiply(12, -10)).to.equal(12 * -10);
-        // expect(multiply(-22, 3)).to.equal(-22 * 3);
+        expect(multiply(-275, 502)).to.equal(-275 * 502);
+        expect(multiply(275, -502)).to.equal(275 * -502);
+        expect(multiply(-8, 3)).to.equal(-8 * 3);
+        expect(multiply(12, -10)).to.equal(12 * -10);
+        expect(multiply(-22, 3)).to.equal(-22 * 3);
       });
 
       it('should accept parameters in any order', function() {
         expect(multiply(2, 1)).to.equal(1 * 2);
         expect(multiply(5, 17)).to.equal(5 * 17);
         expect(multiply(32, 0)).to.equal(0 * 32);
-        // expect(multiply(453, 78)).to.equal(78 * 453);
+        expect(multiply(453, 78)).to.equal(78 * 453);
       });
 
       it('should use recursion by calling self', function() {
@@ -777,6 +780,8 @@
         expect(divide(17, 5)).to.equal(~~(17 / 5));
         expect(divide(78, 453)).to.equal(~~(78 / 453));
         expect(divide(-79, 82)).to.equal(~~(-79 / 82));
+        expect(divide(-79, 4)).to.equal(~~(-79 / 4));
+        expect(divide(79, -4)).to.equal(~~(79 / -4));
         expect(divide(-275, -582)).to.equal(~~(-275 / -582));
         expect(divide(0, 32)).to.equal(~~(0 / 32));
         expect(divide(0, 0)).to.be.NaN;
@@ -832,11 +837,11 @@
         expect(gcd(7, -36)).to.be.null;
         expect(gcd(-10, -58)).to.be.null;
         expect(gcd(-92, -5)).to.be.null;
-        // expect(gcd(0, 0)).to.be.null;
-        // expect(gcd(0, 5)).to.be.null;
-        // expect(gcd(5, 0)).to.be.null;
-        // expect(gcd(-5, 0)).to.be.null;
-        // expect(gcd(0, -5)).to.be.null;
+        expect(gcd(0, 0)).to.be.null;
+        expect(gcd(0, 5)).to.be.null;
+        expect(gcd(5, 0)).to.be.null;
+        expect(gcd(-5, 0)).to.be.null;
+        expect(gcd(0, -5)).to.be.null;
       });
 
       it('should use recursion by calling self', function() {
@@ -1121,7 +1126,7 @@
         expect(countOccurrence(['',null,0,'false',false], false)).to.equal(1);
         expect(countOccurrence(['',7,null,0,'0',false], null)).to.equal(1);
         expect(countOccurrence(['',7,null,0,'0',false], '')).to.equal(1);
-        // expect(countOccurrence(['',7,null,0,NaN,'0',false], NaN)).to.equal(1);
+        expect(countOccurrence(['',7,null,0,NaN,'0',false], NaN)).to.equal(1);
       });
 
       it('should use recursion by calling self', function() {
